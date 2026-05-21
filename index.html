@@ -2,7 +2,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <title>Jaxson's 12th — Staff Dashboard</title>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -319,8 +322,189 @@ label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transfor
 
 /* SCROLLBAR */
 ::-webkit-scrollbar { width:5px;height:5px; }
+
+/* iPhone home bar safe area */
+.main { padding-bottom: max(20px, env(safe-area-inset-bottom)); }
+.tab-nav { padding-bottom: env(safe-area-inset-bottom, 0); }
 ::-webkit-scrollbar-track { background:transparent; }
 ::-webkit-scrollbar-thumb { background:var(--border2);border-radius:3px; }
+
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE OPTIMISATION — phones up to 480px
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 600px) {
+
+  /* ── Header ── */
+  .header {
+    height: auto;
+    padding: 10px 14px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .header-left { gap: 8px; }
+  .header-title { font-size: 13px; }
+  .header-sub { font-size: 10px; }
+  .event-pill { font-size: 9px; padding: 2px 8px; }
+
+  /* Collapse header right — stack connection + buttons */
+  .header > div:last-child {
+    width: 100%;
+    justify-content: flex-start !important;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .btn-ghost { font-size: 10px !important; padding: 4px 10px !important; }
+
+  /* ── Tab nav — scrollable pill row ── */
+  .tab-nav {
+    padding: 0 10px;
+    gap: 0;
+  }
+  .tab-btn {
+    font-size: 11px;
+    padding: 10px 10px;
+    gap: 4px;
+  }
+  .tab-icon { font-size: 13px; }
+
+  /* ── Main content ── */
+  .main { padding: 12px; }
+  .section-title { font-size: 17px; }
+  .section-sub { font-size: 12px; margin-bottom: 14px; }
+
+  /* ── All grids → single column ── */
+  .g2, .g3, .g4,
+  .form-row, .form-row.g3 {
+    grid-template-columns: 1fr !important;
+    gap: 10px;
+  }
+
+  /* ── Cards ── */
+  .card { padding: 14px; margin-bottom: 12px; }
+  .card-title { font-size: 10px; margin-bottom: 10px; }
+
+  /* ── Stat cards ── */
+  .stat { padding: 12px 14px; }
+  .stat-val { font-size: 22px; }
+  .stat-label { font-size: 10px; }
+
+  /* ── Timeline ── */
+  .timeline { padding-left: 18px; }
+  .tl-dot { left: -15px; width: 12px; height: 12px; }
+  .tl-time { font-size: 10px; }
+  .tl-title { font-size: 12px; }
+  .tl-desc { font-size: 11px; }
+  .tl-tags { gap: 3px; }
+  .tag { font-size: 9px; padding: 1px 6px; }
+  .tl-item { padding-bottom: 16px; }
+
+  /* ── Schedule edit/delete buttons ── */
+  .tl-item > div > div:last-child {
+    flex-direction: column;
+    gap: 4px;
+  }
+  .tl-item > div > div > button {
+    font-size: 10px !important;
+    padding: 3px 8px !important;
+  }
+
+  /* ── Role cards ── */
+  .role-card { padding: 14px; }
+  .role-name { font-size: 14px; }
+  .task-item { font-size: 12px; }
+
+  /* ── Staff wages table ── */
+  table { font-size: 11px; }
+  th { font-size: 9px; padding: 6px 8px; }
+  td { padding: 8px; }
+  /* Stack wages table on mobile */
+  #staff-hours-body tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    border-bottom: 1px solid var(--border);
+    padding: 8px 0;
+  }
+  #staff-hours-body td {
+    border-bottom: none;
+    padding: 2px 6px;
+    font-size: 11px;
+  }
+  /* Hide table headers on mobile, use data-labels instead */
+  thead { display: none; }
+
+  /* ── Room grid ── */
+  .room-grid { grid-template-columns: 1fr 1fr !important; gap: 8px; }
+  .room-card { padding: 10px; }
+  .room-family { font-size: 12px; }
+  .room-guests { font-size: 11px; }
+  .room-dietary { font-size: 10px; }
+
+  /* ── Forms ── */
+  input[type=text], input[type=number], input[type=email], select, textarea {
+    font-size: 16px; /* prevents iOS zoom on focus */
+    padding: 10px 12px;
+  }
+  label { font-size: 10px; }
+  .form-field { margin-bottom: 10px; }
+  textarea { min-height: 70px; }
+  .btn { font-size: 12px; padding: 10px 16px; width: 100%; text-align: center; }
+
+  /* ── Shopping list ── */
+  .check-item { padding: 8px 0; font-size: 12px; gap: 8px; }
+  .check-item input[type=checkbox] { width: 18px; height: 18px; }
+
+  /* ── Budget rows ── */
+  .budget-row { grid-template-columns: 1fr 1fr; gap: 4px; font-size: 12px; padding: 8px 0; }
+  .budget-row.header { display: none; }
+  .budget-total { padding: 12px 14px; }
+  .budget-total-val { font-size: 18px; }
+
+  /* ── Staff roster cards ── */
+  #staff-roster > div { grid-template-columns: 1fr !important; }
+
+  /* ── Safety items ── */
+  .safety-item { padding: 10px; }
+  .safety-title { font-size: 12px; }
+  .safety-desc { font-size: 11px; }
+
+  /* ── Weather toggle ── */
+  .weather-toggle { gap: 6px; }
+  .weather-btn { font-size: 12px; padding: 8px; }
+
+  /* ── Alert ── */
+  .alert { font-size: 12px; padding: 10px 12px; }
+
+  /* ── Outstanding items ── */
+  #outstanding-list div { font-size: 11px; }
+
+  /* ── Overview stats row — 2x2 grid on phone ── */
+  .g4 { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Scroll hint for tab nav ── */
+  .tab-nav::after {
+    content: '';
+    min-width: 10px;
+    display: block;
+  }
+}
+
+
+@media (max-width: 480px) {
+  .tab-label { display: none; }
+  .tab-icon { font-size: 18px; }
+  .tab-btn { padding: 10px 12px; }
+}
+
+/* ── Extra small phones (SE, older Androids) ── */
+@media (max-width: 375px) {
+  .header-title { font-size: 12px; }
+  .tab-btn { font-size: 10px; padding: 9px 8px; }
+  .section-title { font-size: 15px; }
+  .stat-val { font-size: 20px; }
+  .g4 { grid-template-columns: 1fr 1fr !important; }
+}
 
 </style>
 
@@ -356,14 +540,14 @@ label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transfor
 </div>
 
 <div class="tab-nav">
-  <button class="tab-btn active" onclick="showTab('overview')" id="btn-overview"><span class="tab-icon">⚡</span> Overview</button>
-  <button class="tab-btn" onclick="showTab('schedule')" id="btn-schedule"><span class="tab-icon">🕐</span> Schedule</button>
-  <button class="tab-btn" onclick="showTab('roles')" id="btn-roles"><span class="tab-icon">👥</span> Roles</button>
-  <button class="tab-btn" onclick="showTab('guests')" id="btn-guests"><span class="tab-icon">🏠</span> Guests & Rooms</button>
-  <button class="tab-btn" onclick="showTab('menu')" id="btn-menu"><span class="tab-icon">🍽️</span> Menus</button>
-  <button class="tab-btn" onclick="showTab('shopping')" id="btn-shopping"><span class="tab-icon">🛒</span> Shopping List</button>
-  <button class="tab-btn" onclick="showTab('budget')" id="btn-budget"><span class="tab-icon">💰</span> Budget & Wages</button>
-  <button class="tab-btn" onclick="showTab('safety')" id="btn-safety"><span class="tab-icon">⚠️</span> Safety</button>
+  <button class="tab-btn active" onclick="showTab('overview')" id="btn-overview"><span class="tab-icon">⚡</span><span class="tab-label"> Overview</span></button>
+  <button class="tab-btn" onclick="showTab('schedule')" id="btn-schedule"><span class="tab-icon">🕐</span><span class="tab-label"> Schedule</span></button>
+  <button class="tab-btn" onclick="showTab('roles')" id="btn-roles"><span class="tab-icon">👥</span><span class="tab-label"> Roles</span></button>
+  <button class="tab-btn" onclick="showTab('guests')" id="btn-guests"><span class="tab-icon">🏠</span><span class="tab-label"> Guests</span></button>
+  <button class="tab-btn" onclick="showTab('menu')" id="btn-menu"><span class="tab-icon">🍽️</span><span class="tab-label"> Menus</span></button>
+  <button class="tab-btn" onclick="showTab('shopping')" id="btn-shopping"><span class="tab-icon">🛒</span><span class="tab-label"> Shopping</span></button>
+  <button class="tab-btn" onclick="showTab('budget')" id="btn-budget"><span class="tab-icon">💰</span><span class="tab-label"> Budget</span></button>
+  <button class="tab-btn" onclick="showTab('safety')" id="btn-safety"><span class="tab-icon">⚠️</span><span class="tab-label"> Safety</span></button>
 </div>
 
 <div class="main">
@@ -436,24 +620,13 @@ label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transfor
       <div class="card">
         <div class="card-title">📅 Weekend at a Glance</div>
         <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--accent);margin-bottom:10px">Saturday 4 July</div>
-        <div class="timeline">
-          <div class="tl-item"><div class="tl-dot amber"></div><div class="tl-time">12:00 PM</div><div class="tl-title" style="font-size:12px">Staff arrival & briefing</div></div>
-          <div class="tl-item"><div class="tl-dot teal"></div><div class="tl-time">2:00 PM</div><div class="tl-title" style="font-size:12px">Guest check-in (Lead: Alejandra)</div></div>
-          <div class="tl-item"><div class="tl-dot amber"></div><div class="tl-time">3:00 PM</div><div class="tl-title" style="font-size:12px">Welcome snacks & drinks</div></div>
-          <div class="tl-item"><div class="tl-dot teal"></div><div class="tl-time">3:30 PM</div><div class="tl-title" style="font-size:12px">Treasure hunt</div></div>
-          <div class="tl-item"><div class="tl-dot orange"></div><div class="tl-time">7:00 PM</div><div class="tl-title" style="font-size:12px">Dinner service — 30 pax</div></div>
-          <div class="tl-item"><div class="tl-dot amber"></div><div class="tl-time">9:00 PM</div><div class="tl-title" style="font-size:12px">Cake celebration 🎂</div></div>
-          <div class="tl-item"><div class="tl-dot teal"></div><div class="tl-time">After</div><div class="tl-title" style="font-size:12px">Firepit social & fishing</div></div>
-        </div>
+        <div class="timeline" id="overview-sat-timeline"></div>
         <hr class="divider">
         <div style="font-size:11px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--green);margin-bottom:10px">Sunday 5 July</div>
-        <div class="timeline">
-          <div class="tl-item"><div class="tl-dot orange"></div><div class="tl-time">7:00 AM</div><div class="tl-title" style="font-size:12px">Kitchen breakfast prep</div></div>
-          <div class="tl-item"><div class="tl-dot teal"></div><div class="tl-time">8:00 AM</div><div class="tl-title" style="font-size:12px">Breakfast service</div></div>
-          <div class="tl-item"><div class="tl-dot amber"></div><div class="tl-time">10:30 AM</div><div class="tl-title" style="font-size:12px">Pack down begins</div></div>
-          <div class="tl-item"><div class="tl-dot teal"></div><div class="tl-time">11:00 AM</div><div class="tl-title" style="font-size:12px">Guest checkout & farewell</div></div>
-        </div>
+        <div class="timeline" id="overview-sun-timeline"></div>
       </div>
+    </div>
+  </div>
     </div>
   </div>
 </div>
@@ -1098,33 +1271,74 @@ function renderExpenses() {
   updateGrandTotal();
 }
 function updateGrandTotal() {
-  const wages = parseFloat((document.getElementById('total-wages')||{}).textContent||'0' .replace(/[$,]/g,''))||2880;
-  const food  = parseFloat(document.getElementById('shop-total').textContent.replace(/[$,]/g,''))||0;
-  const other = expenses.reduce((s,e)=>s+e.amt,0);
+  // Read wages from table inputs directly - more reliable than DOM text
+  let wages = 0;
+  document.querySelectorAll('#staff-hours-body tr').forEach(row => {
+    const sat = parseFloat(row.querySelector('.hours-sat')?.value) || 0;
+    const sun = parseFloat(row.querySelector('.hours-sun')?.value) || 0;
+    wages += (sat + sun) * 30;
+  });
+  if (wages === 0) wages = 2880; // fallback default
+
+  const food  = shopItems.reduce((s,i) => s + i.cost, 0);
+  const other = expenses.reduce((s,e) => s + e.amt, 0);
   const total = wages + food + other;
-  if(document.getElementById('grand-total')) document.getElementById('grand-total').textContent = '$' + total.toLocaleString();
-  if(document.getElementById('b-total')) document.getElementById('b-total').textContent = '$' + total.toLocaleString(undefined,{minimumFractionDigits:0});
-  if(document.getElementById('stat-budget')) document.getElementById('stat-budget').textContent = '$' + total.toLocaleString();
+
+  const fmt = n => '$' + n.toLocaleString(undefined, {minimumFractionDigits:0, maximumFractionDigits:0});
+  if (document.getElementById('grand-total'))  document.getElementById('grand-total').textContent  = fmt(total);
+  if (document.getElementById('b-total'))      document.getElementById('b-total').textContent      = fmt(total);
+  if (document.getElementById('stat-budget'))  document.getElementById('stat-budget').textContent  = fmt(total);
+  if (document.getElementById('b-wages'))      document.getElementById('b-wages').textContent      = fmt(wages);
+  if (document.getElementById('b-shopping'))   document.getElementById('b-shopping').textContent   = fmt(food);
+  if (document.getElementById('wages-line'))   document.getElementById('wages-line').textContent   = fmt(wages);
+  if (document.getElementById('food-line'))    document.getElementById('food-line').textContent    = fmt(food);
 }
 
 // ── OUTSTANDING ITEMS ─────────────────────────────────────
 function updateOutstanding() {
-  const undoneShopping = shopItems.filter(s=>!s.done);
-  const el = document.getElementById('outstanding-list');
+  const el      = document.getElementById('outstanding-list');
   const countEl = document.getElementById('outstanding-count');
-  if (!undoneShopping.length) {
-    el.innerHTML='<div class="empty"><div class="empty-icon">✅</div>All shopping items checked off!</div>';
-    countEl.textContent='0'; countEl.className='badge badge-green';
-  } else {
-    el.innerHTML = undoneShopping.slice(0,8).map(s =>
-      `<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px">
-        <span>🛒 ${s.item}</span>
-        <span style="color:var(--accent);font-size:11px">$${s.cost.toFixed(2)}</span>
-      </div>`).join('') +
-      (undoneShopping.length>8 ? `<div style="font-size:11px;color:var(--muted);padding:6px 0">+ ${undoneShopping.length-8} more items</div>` : '');
-    countEl.textContent = undoneShopping.length;
-    countEl.className = 'badge badge-red';
+  const items   = [];
+
+  // Unpurchased shopping items
+  shopItems.filter(s => !s.done).forEach(s => {
+    items.push({ icon:'🛒', text: s.item, meta: '$' + s.cost.toFixed(2), color: 'var(--accent)' });
+  });
+
+  // Unallocated rooms
+  const allocatedRooms = guests.map(g => g.room);
+  for (let r = 1; r <= 6; r++) {
+    if (!allocatedRooms.includes('Lakeview Room ' + r)) {
+      items.push({ icon:'🏠', text: 'Lakeview Room ' + r + ' unallocated', meta: 'Rooms', color: 'var(--blue)' });
+    }
   }
+
+  // Guests with dietary requirements — remind kitchen
+  guests.filter(g => g.dietary).forEach(g => {
+    items.push({ icon:'⚠️', text: g.family + ': ' + g.dietary, meta: 'Dietary', color: 'var(--red)' });
+  });
+
+  // Staff roster empty warning
+  if (staffList.length === 0) {
+    items.push({ icon:'👥', text: 'No staff added to roster yet', meta: 'Roles tab', color: 'var(--purple)' });
+  }
+
+  if (!items.length) {
+    el.innerHTML = '<div class="empty"><div class="empty-icon">✅</div>All looking good — nothing outstanding.</div>';
+    countEl.textContent = '0';
+    countEl.className = 'badge badge-green';
+    return;
+  }
+
+  el.innerHTML = items.slice(0,10).map(i =>
+    `<div style="display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border);font-size:12px">
+      <span>${i.icon} ${i.text}</span>
+      <span style="color:${i.color};font-size:11px;font-weight:600;flex-shrink:0;margin-left:8px">${i.meta}</span>
+    </div>`).join('') +
+    (items.length > 10 ? `<div style="font-size:11px;color:var(--muted);padding:6px 0">+ ${items.length-10} more items</div>` : '');
+
+  countEl.textContent = items.length;
+  countEl.className   = items.length > 0 ? 'badge badge-red' : 'badge badge-green';
 }
 
 
@@ -1288,6 +1502,7 @@ function renderStaff() {
 
   badge.textContent = staffList.length + ' staff';
   badge.className   = staffList.length ? 'badge badge-green' : 'badge badge-amber';
+  updateOutstanding();
 
   if (!staffList.length) {
     roster.innerHTML = '<div class="empty" id="staff-empty"><div class="empty-icon">👥</div>No staff added yet.</div>';
@@ -1482,8 +1697,30 @@ function importData(event) {
 }
 
 // ── renderAll ────────────────────────────────────────────
+
+// ── OVERVIEW TIMELINE (mirrors scheduleData) ──────────────
+function renderOverviewTimeline() {
+  const dotMap = { all:'purple', kitchen:'orange', foh:'teal', jack:'amber', 'kitchen,foh':'orange', 'foh,jack':'teal' };
+  ['sat','sun'].forEach(day => {
+    const el = document.getElementById('overview-' + day + '-timeline');
+    if (!el) return;
+    const items = scheduleData[day];
+    if (!items || !items.length) {
+      el.innerHTML = '<div style="color:var(--muted);font-size:12px;padding:8px 0">No items scheduled.</div>';
+      return;
+    }
+    el.innerHTML = items.map(item => `
+      <div class="tl-item">
+        <div class="tl-dot ${dotMap[item.team] || 'amber'}"></div>
+        <div>
+          <div class="tl-time">${item.time}</div>
+          <div class="tl-title" style="font-size:12px">${item.title}</div>
+        </div>
+      </div>`).join('');
+  });
+}
 function renderAll() {
-  renderSchedule(); renderGuests(); renderShop();
+  renderSchedule(); renderOverviewTimeline(); renderGuests(); renderShop();
   renderExpenses(); renderStaff(); calcWages();
   updateGrandTotal(); updateOutstanding();
 }
